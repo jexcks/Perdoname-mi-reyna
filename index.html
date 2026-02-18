@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mi niña… perdóname 💔</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    font-family: 'Georgia', serif;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+#pantallaInicio {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.container {
+    display: none;
+    margin-top: 90px;
+    padding: 20px;
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 48px;
+    color: #ff4d6d;
+}
+
+h2 {
+    font-size: 20px;
+    width: 80%;
+    margin: 20px auto;
+    line-height: 1.8;
+    font-weight: normal;
+}
+
+button {
+    padding: 14px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin: 15px;
+    transition: 0.3s;
+}
+
+#si {
+    background-color: #ff4d6d;
+    color: white;
+}
+
+#no {
+    background-color: gray;
+    color: white;
+    position: absolute;
+}
+
+.emoji {
+    position: fixed;
+    font-size: 25px;
+    animation: flotar 6s linear infinite;
+}
+
+@keyframes flotar {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<div id="pantallaInicio" onclick="iniciar()">
+    Toca la pantalla… 💔
+</div>
+
+<div class="container" id="contenido">
+    <h1>Mi niña, por favor perdóname la vida 💔</h1>
+
+    <h2>
+        Mi reyna, perdona a este hombre que cometió un error y lastimó tu corazón.  
+        No puedo estar tranquilo sabiendo que fui yo quien te hizo daño.  
+        Me duele haber fallado contigo, porque tú no mereces eso.  
+        Te prometo que voy a aprender de esto y ser mejor para ti.  
+        Solo te pido una oportunidad más para demostrarte que mi amor es más grande que mi error.
+    </h2>
+
+    <button id="si" onclick="aceptar()">Sí, te perdono 💖</button>
+    <button id="no" onmouseover="moverBoton()">No 😔</button>
+</div>
+
+<script>
+function iniciar(){
+    document.getElementById("musica").play();
+    document.getElementById("pantallaInicio").style.display = "none";
+    document.getElementById("contenido").style.display = "block";
+}
+
+// Botón que se escapa
+function moverBoton() {
+    const boton = document.getElementById("no");
+    boton.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    boton.style.left = Math.random() * (window.innerWidth - 100) + "px";
+}
+
+// Cuando perdona
+function aceptar() {
+    document.body.innerHTML = `
+        <audio autoplay loop>
+            <source src="musica.mp3" type="audio/mpeg">
+        </audio>
+
+        <div style="margin-top:150px; text-align:center; background:black; height:100vh;">
+            <h1 style="color:#ff4d6d;">Gracias mi reyna 💕</h1>
+            <p style="font-size:24px;">
+                Prometo cuidar tu corazón como el tesoro que eres.  
+                No quiero perder lo más bonito que tengo en mi vida.
+            </p>
+        </div>
+    `;
+
+    // Corazones felices
+    setInterval(() => {
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerHTML = "💖";
+        emoji.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(emoji);
+        setTimeout(() => { emoji.remove(); }, 6000);
+    }, 400);
+}
+
+// Emojis tristes al inicio
+setInterval(() => {
+    const emoji = document.createElement("div");
+    emoji.classList.add("emoji");
+    emoji.innerHTML = "😢";
+    emoji.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(emoji);
+    setTimeout(() => { emoji.remove(); }, 6000);
+}, 700);
+</script>
+
+</body>
+</html>
