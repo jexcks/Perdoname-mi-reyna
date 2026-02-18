@@ -14,7 +14,6 @@ body {
     text-align: center;
 }
 
-/* Pantalla inicial */
 #pantallaInicio {
     position: fixed;
     width: 100%;
@@ -28,7 +27,6 @@ body {
     z-index: 9999;
 }
 
-/* Contenido principal */
 .container {
     display: none;
     margin-top: 90px;
@@ -57,7 +55,6 @@ button {
     border-radius: 15px;
     cursor: pointer;
     margin: 15px;
-    transition: 0.3s;
 }
 
 #si {
@@ -71,12 +68,11 @@ button {
     position: absolute;
 }
 
-/* Emojis */
 .emoji {
     position: fixed;
     font-size: 25px;
     animation: flotar 6s linear infinite;
-    pointer-events: none; /* 🔥 NO bloquea clics */
+    pointer-events: none;
 }
 
 @keyframes flotar {
@@ -91,7 +87,7 @@ button {
     <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<div id="pantallaInicio" onclick="iniciar()">
+<div id="pantallaInicio">
     Toca la pantalla… 💔
 </div>
 
@@ -106,59 +102,66 @@ button {
         Solo te pido una oportunidad más para demostrarte que mi amor es más grande que mi error.
     </h2>
 
-    <button id="si" onclick="aceptar()">Sí, te perdono 💖</button>
-    <button id="no" onmouseover="moverBoton()">No 😔</button>
+    <button id="si">Sí, te perdono 💖</button>
+    <button id="no">No 😔</button>
 </div>
 
 <script>
-const musica = document.getElementById("musica");
+window.addEventListener("DOMContentLoaded", function(){
 
-function iniciar(){
-    musica.play();
-    document.getElementById("pantallaInicio").style.display = "none";
-    document.getElementById("contenido").style.display = "block";
-}
+    const musica = document.getElementById("musica");
+    const pantalla = document.getElementById("pantallaInicio");
+    const contenido = document.getElementById("contenido");
+    const botonNo = document.getElementById("no");
+    const botonSi = document.getElementById("si");
 
-// Botón que se escapa
-function moverBoton() {
-    const boton = document.getElementById("no");
-    boton.style.top = Math.random() * (window.innerHeight - 50) + "px";
-    boton.style.left = Math.random() * (window.innerWidth - 100) + "px";
-}
+    // Click pantalla inicial
+    pantalla.addEventListener("click", function(){
+        musica.play().catch(() => {});
+        pantalla.style.display = "none";
+        contenido.style.display = "block";
+    });
 
-// Cuando perdona
-function aceptar() {
+    // Botón que se escapa
+    botonNo.addEventListener("mouseover", function(){
+        botonNo.style.top = Math.random() * (window.innerHeight - 50) + "px";
+        botonNo.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    });
 
-    document.getElementById("contenido").innerHTML = `
-        <div style="margin-top:150px; text-align:center;">
-            <h1 style="color:#ff4d6d;">Gracias mi reyna 💕</h1>
-            <p style="font-size:24px;">
-                Prometo cuidar tu corazón como el tesoro que eres.  
-                No quiero perder lo más bonito que tengo en mi vida.
-            </p>
-        </div>
-    `;
+    // Cuando perdona
+    botonSi.addEventListener("click", function(){
 
-    // Corazones felices
+        contenido.innerHTML = `
+            <div style="margin-top:150px;">
+                <h1 style="color:#ff4d6d;">Gracias mi reyna 💕</h1>
+                <p style="font-size:24px;">
+                    Prometo cuidar tu corazón como el tesoro que eres.  
+                    No quiero perder lo más bonito que tengo en mi vida.
+                </p>
+            </div>
+        `;
+
+        setInterval(() => {
+            const emoji = document.createElement("div");
+            emoji.classList.add("emoji");
+            emoji.innerHTML = "💖";
+            emoji.style.left = Math.random() * 100 + "vw";
+            document.body.appendChild(emoji);
+            setTimeout(() => { emoji.remove(); }, 6000);
+        }, 400);
+    });
+
+    // Emojis tristes
     setInterval(() => {
         const emoji = document.createElement("div");
         emoji.classList.add("emoji");
-        emoji.innerHTML = "💖";
+        emoji.innerHTML = "😢";
         emoji.style.left = Math.random() * 100 + "vw";
         document.body.appendChild(emoji);
         setTimeout(() => { emoji.remove(); }, 6000);
-    }, 400);
-}
+    }, 700);
 
-// Emojis tristes al inicio
-setInterval(() => {
-    const emoji = document.createElement("div");
-    emoji.classList.add("emoji");
-    emoji.innerHTML = "😢";
-    emoji.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(emoji);
-    setTimeout(() => { emoji.remove(); }, 6000);
-}, 700);
+});
 </script>
 
 </body>
