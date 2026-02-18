@@ -12,9 +12,9 @@ body {
     font-family: 'Georgia', serif;
     color: white;
     text-align: center;
-    overflow: hidden;
 }
 
+/* Pantalla inicial */
 #pantallaInicio {
     position: fixed;
     width: 100%;
@@ -25,9 +25,10 @@ body {
     align-items: center;
     font-size: 22px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 9999;
 }
 
+/* Contenido principal */
 .container {
     display: none;
     margin-top: 90px;
@@ -70,10 +71,12 @@ button {
     position: absolute;
 }
 
+/* Emojis */
 .emoji {
     position: fixed;
     font-size: 25px;
     animation: flotar 6s linear infinite;
+    pointer-events: none; /* 🔥 NO bloquea clics */
 }
 
 @keyframes flotar {
@@ -126,7 +129,6 @@ function moverBoton() {
 // Cuando perdona
 function aceptar() {
 
-    // NO creamos otro audio, usamos el mismo
     document.getElementById("contenido").innerHTML = `
         <div style="margin-top:150px; text-align:center;">
             <h1 style="color:#ff4d6d;">Gracias mi reyna 💕</h1>
@@ -154,4 +156,10 @@ setInterval(() => {
     emoji.classList.add("emoji");
     emoji.innerHTML = "😢";
     emoji.style.left = Math.random() * 100 + "vw";
-    document.body.append
+    document.body.appendChild(emoji);
+    setTimeout(() => { emoji.remove(); }, 6000);
+}, 700);
+</script>
+
+</body>
+</html>
